@@ -1,39 +1,40 @@
-<div class="card border-primary mb-3">
+<div class="card bg-white text-dark">
   <div class="card-header">Personas</div>
-  <div class="card-body text-primary">
-    <h5 class="card-title">Listado de personas</h5>
-    <div class="my-2 text-left">
-      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/personas/form']">
+  <div class="card-body text-primary text-dark">
+
+    <div class="my-2 text-left d-flex">
+      <h5 class="card-title ">Listado de personas</h5>
+      <button class="btn btn-rounded btn-secondary btn ml-auto" type="button" [routerLink]="['/personas/form']">
         Crear Persona
       </button>
     </div>
-    <table class="table table-bordered table-striped">
+    <table class="table text-dark table-bordered table-striped">
       <thead>
       <tr>
-        <th>id</th>
-        <th>nombre</th>
-        <th>apellido</th>
-        <th>email</th>
-        <th>fecha</th>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Identificacion</th>
+        <th>fecha Nacimiento</th>
         <th>
-          editar
+          Acciones
         </th>
-        <th>eliminar</th>
+
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let persona of personas">
-        <td>{{ persona.idPersona }}</td>
+        <td>{{ persona.id }}</td>
         <td>{{ persona.nombre }}</td>
         <td>{{ persona.apellido }}</td>
         <td>{{ persona.identificacion }}</td>
-        <td>{{ persona.fechaNacimiento }}</td>
-        <td>
-          <button type="button" name="editar" [routerLink]="['/personas/form', persona.idPersona]" class="btn btn-primary btn-sm">editar</button>
+        <td>{{ persona.fechaNacimiento| date: 'mediumDate' }}</td>
+        <td class="btn-toolbar">
+          <div class="btn-group mr-2">
+            <button type="button" name="editar" [routerLink]="['/personas/form', persona.id]" class="btn btn-primary btn-sm align-content-sm-start">editar</button>
+          </div>
         </td>
-        <td>
-          <button type="button" name="eliminar" (click)='delete(persona)' class="btn btn-danger btn-sm">eliminar</button>
-        </td>
+
       </tr>
       </tbody>
     </table>

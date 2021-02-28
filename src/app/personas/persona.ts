@@ -1,5 +1,5 @@
 export class Persona {
-  idPersona: number | undefined;
+  id: number | undefined;
   nombre: string | undefined;
   apellido: string | undefined;
   identificacion: string | undefined;

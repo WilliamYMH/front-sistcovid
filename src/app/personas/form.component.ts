@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
 })
 export class FormPersonaComponent implements OnInit {
 
-  private persona: Persona = new Persona();
-  private titulo = 'Crear Cliente';
+  public persona: Persona = new Persona();
+  public titulo = 'Crear Persona';
 
   constructor(private personaService: PersonaService,
               private router: Router,
@@ -32,9 +32,9 @@ export class FormPersonaComponent implements OnInit {
 
   create(): void {
     this.personaService.createPersona(this.persona)
-      .subscribe(cliente => {
+      .subscribe(persona => {
           this.router.navigate(['/personas']);
-          Swal.fire('Nuevo persona', `Persona ${cliente.nombre} creada con éxito!`, 'success');
+          Swal.fire('Nuevo persona', `Persona creada con éxito!`, 'success');
         }
       );
   }
@@ -43,7 +43,7 @@ export class FormPersonaComponent implements OnInit {
     this.personaService.updatePersona(this.persona)
       .subscribe( persona => {
           this.router.navigate(['/personas']);
-          Swal.fire('Persona Actualizada', `Persona ${persona.nombre} actualizada con éxito!`, 'success');
+          Swal.fire('Persona Actualizada', `Persona actualizada con éxito!`, 'success');
         }
       );
   }

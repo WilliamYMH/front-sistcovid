@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Persona } from './persona';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 // import { of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class PersonaService {
@@ -20,15 +21,29 @@ export class PersonaService {
   }
 
   createPersona(persona: Persona): Observable<Persona> {
-    return this.http.post<Persona>(this.urlEndPoint, persona, {headers: this.httpHeaders});
+    return this.http.post<Persona>(this.urlEndPoint, persona, {headers: this.httpHeaders}).pipe(
+      catchError(e => {
+        Swal.fire('Error al crear', e.error.mensajeError, 'error');
+        return throwError(e);
+      })
+    );
   }
 
-  getPersona(id: any): Observable<Persona>{
+  getPersona(id: number): Observable<Persona>{
     return this.http.get<Persona>(`${this.urlEndPoint}/${id}`);
   }
 
-  updatePersona(id: any): Observable<Persona>{
-    return this.http.get<Persona>(`${this.urlEndPoint}/${id}`);
+  updatePersona(persona: Persona): Observable<Persona>{
+    return this.http.put<Persona>(`${this.urlEndPoint}`, persona, {headers: this.httpHeaders}).pipe(
+      catchError(e => {
+        Swal.fire('Error al actualizar', e.error.mensajeError, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  borrarPersona(id: number | undefined): Observable<Persona>{
+    return this.http.delete<Persona>(`${this.urlEndPoint}/${id}`);
   }
 
 
